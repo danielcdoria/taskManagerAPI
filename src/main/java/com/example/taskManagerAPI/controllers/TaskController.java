@@ -39,7 +39,7 @@ public class TaskController {
         return ResponseEntity.ok(task);
     }
 
-    @PutMapping("/task/{id}/deactivate")
+    @PutMapping("/tasks/{id}/deactivate")
     public ResponseEntity<TaskResponseDto> deactivateTask(@PathVariable Long id){
         TaskResponseDto task = service.deactivateTask(id);
         return ResponseEntity.ok(task);
@@ -51,13 +51,13 @@ public class TaskController {
         return ResponseEntity.ok(message);
     }
 
-    @PutMapping("/task/{id}/start")
+    @PutMapping("/tasks/{id}/start")
     public ResponseEntity<TaskResponseDto> startTask(@PathVariable Long id){
         TaskResponseDto task = service.startTask(id);
         return ResponseEntity.ok(task);
     }
 
-    @PutMapping("/task/{id}/complete")
+    @PutMapping("/tasks/{id}/complete")
     public ResponseEntity<TaskResponseDto> completeTask(@PathVariable Long id){
         TaskResponseDto task = service.completeTask(id);
         return ResponseEntity.ok(task);

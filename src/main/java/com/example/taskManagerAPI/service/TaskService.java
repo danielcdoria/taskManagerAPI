@@ -35,9 +35,9 @@ public class TaskService {
                 task.getPriority(),
                 task.getStatus(),
                 task.isActive(),
-                project.getId(),
-                project.getName(),
-                project.getDeadline()
+                task.getProject().getId(),
+                task.getProject().getName(),
+                task.getProject().getDeadline()
         );
     }
 

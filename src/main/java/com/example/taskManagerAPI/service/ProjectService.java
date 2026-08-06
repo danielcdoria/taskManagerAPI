@@ -44,6 +44,7 @@ public class ProjectService {
                 project.getId(),
                 project.getName(),
                 project.getDescription(),
+                project.getDeadline(),
                 project.isActive(),
                 tasks
         );

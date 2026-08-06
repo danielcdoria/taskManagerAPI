@@ -37,12 +37,10 @@ public class Task {
         if (priority == null){
             throw new IllegalArgumentException("The priority can't be null.");
         }
-        if (status == null){
-            throw new IllegalArgumentException("The status can't be null.");
-        }
         this.title = title;
         this.description = description;
         this.priority = priority;
+        this.status = Status.PENDING;
         this.active = true;
     }
 
