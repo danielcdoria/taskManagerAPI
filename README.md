@@ -1,97 +1,97 @@
 # Task Manager API
 
-A RESTful API for managing projects and tasks, built with Java and Spring Boot.
+API RESTful para gerenciamento de projetos e tarefas, desenvolvida com Java e Spring Boot.
 
-## Technologies
+## Tecnologias
 
 ![Java](https://img.shields.io/badge/Java-17-orange)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3-green)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-blue)
 ![Docker](https://img.shields.io/badge/Docker-ready-blue)
 
-## Features
+## Funcionalidades
 
-- Full CRUD for Projects and Tasks
-- Task status flow: `PENDING → IN_PROGRESS → DONE`
-- Business rule: tasks can only be added to active projects
-- Filter tasks by status, priority, and deadline
-- Global error handling with meaningful messages
-- PostgreSQL database running in Docker
+- CRUD completo de Projetos e Tarefas
+- Fluxo de status da tarefa: `PENDING → IN_PROGRESS → DONE`
+- Regra de negócio: tarefas só podem ser criadas em projetos ativos
+- Filtros de tarefas por status, prioridade e prazo
+- Tratamento global de erros com mensagens claras
+- Banco de dados PostgreSQL rodando via Docker
 
-## Getting Started
+## Como Rodar o Projeto
 
-### Prerequisites
+### Pré-requisitos
 
 - Java 17+
 - Docker Desktop
 
-### Running the project
+### Passo a passo
 
-**1. Clone the repository**
+**1. Clone o repositório**
 ```bash
 git clone https://github.com/danielcdoria/taskManagerAPI.git
 cd taskManagerAPI
 ```
 
-**2. Start the database**
+**2. Suba o banco de dados**
 ```bash
 docker compose up -d
 ```
 
-**3. Run the application**
+**3. Execute a aplicação**
 
-Open the project in IntelliJ IDEA and run `TaskManagerApiApplication.java`.
+Abra o projeto no IntelliJ IDEA e execute o arquivo `TaskManagerApiApplication.java`.
 
-The API will be available at `http://localhost:8080`
+A API estará disponível em `http://localhost:8080`
 
 ---
 
-## API Endpoints
+## Endpoints
 
-### Projects
+### Projetos
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/projects` | List all projects |
-| POST | `/projects` | Create a new project |
-| GET | `/projects/{id}` | Get project by ID |
-| GET | `/projects/{id}/details` | Get project with its tasks |
-| PUT | `/projects/{id}/activate` | Activate a project |
-| PUT | `/projects/{id}/deactivate` | Deactivate a project |
-| DELETE | `/projects/{id}` | Remove a project |
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| GET | `/projects` | Lista todos os projetos |
+| POST | `/projects` | Cria um novo projeto |
+| GET | `/projects/{id}` | Busca projeto por ID |
+| GET | `/projects/{id}/details` | Busca projeto com suas tarefas |
+| PUT | `/projects/{id}/activate` | Ativa um projeto |
+| PUT | `/projects/{id}/deactivate` | Desativa um projeto |
+| DELETE | `/projects/{id}` | Remove um projeto |
 
-**Create project — request body:**
+**Criar projeto — body da requisição:**
 ```json
 {
-  "name": "My Project",
-  "description": "Project description",
+  "name": "Meu Projeto",
+  "description": "Descrição do projeto",
   "deadline": "2025-12-31"
 }
 ```
 
-### Tasks
+### Tarefas
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/tasks` | List all tasks |
-| POST | `/tasks` | Create a new task |
-| GET | `/tasks/{id}` | Get task by ID |
-| PUT | `/tasks/{id}/activate` | Activate a task |
-| PUT | `/tasks/{id}/deactivate` | Deactivate a task |
-| DELETE | `/tasks/{id}` | Remove a task |
-| PUT | `/tasks/{id}/start` | Start a task (PENDING → IN_PROGRESS) |
-| PUT | `/tasks/{id}/complete` | Complete a task (IN_PROGRESS → DONE) |
-| GET | `/tasks/project/{id}` | List tasks by project |
-| GET | `/tasks/active?active=true` | Filter by active status |
-| GET | `/tasks/status?status=PENDING` | Filter by status |
-| GET | `/tasks/priority?priority=HIGH` | Filter by priority |
-| GET | `/tasks/deadline?deadline=2025-12-31` | Filter by deadline |
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| GET | `/tasks` | Lista todas as tarefas |
+| POST | `/tasks` | Cria uma nova tarefa |
+| GET | `/tasks/{id}` | Busca tarefa por ID |
+| PUT | `/tasks/{id}/activate` | Ativa uma tarefa |
+| PUT | `/tasks/{id}/deactivate` | Desativa uma tarefa |
+| DELETE | `/tasks/{id}` | Remove uma tarefa |
+| PUT | `/tasks/{id}/start` | Inicia uma tarefa (PENDING → IN_PROGRESS) |
+| PUT | `/tasks/{id}/complete` | Conclui uma tarefa (IN_PROGRESS → DONE) |
+| GET | `/tasks/project/{id}` | Lista tarefas por projeto |
+| GET | `/tasks/active?active=true` | Filtra por status ativo |
+| GET | `/tasks/status?status=PENDING` | Filtra por status |
+| GET | `/tasks/priority?priority=HIGH` | Filtra por prioridade |
+| GET | `/tasks/deadline?deadline=2025-12-31` | Filtra por prazo |
 
-**Create task — request body:**
+**Criar tarefa — body da requisição:**
 ```json
 {
-  "title": "Implement login",
-  "description": "Create JWT authentication",
+  "title": "Implementar login",
+  "description": "Criar autenticação JWT",
   "priority": "HIGH",
   "projectId": 1
 }
@@ -99,32 +99,32 @@ The API will be available at `http://localhost:8080`
 
 ---
 
-## Business Rules
+## Regras de Negócio
 
-- A task can only be created for an **active project**
-- Task status follows a strict flow: `PENDING → IN_PROGRESS → DONE`
-- A task can only be started if its current status is `PENDING`
-- A task can only be completed if its current status is `IN_PROGRESS`
+- Uma tarefa só pode ser criada em um **projeto ativo**
+- O status da tarefa segue um fluxo obrigatório: `PENDING → IN_PROGRESS → DONE`
+- Uma tarefa só pode ser iniciada se seu status for `PENDING`
+- Uma tarefa só pode ser concluída se seu status for `IN_PROGRESS`
 
 ---
 
-## Project Structure
+## Estrutura do Projeto
 
 ```
 src/
 └── main/
     └── java/
         └── com/example/taskManagerAPI/
-            ├── controllers/     # REST endpoints
-            ├── service/         # Business logic
-            ├── repositories/    # Database access
-            ├── models/          # Entities (Project, Task)
-            ├── dtos/            # Data Transfer Objects
-            └── erro/            # Global exception handling
+            ├── controllers/     # Endpoints REST
+            ├── service/         # Regras de negócio
+            ├── repositories/    # Acesso ao banco de dados
+            ├── models/          # Entidades (Project, Task)
+            ├── dtos/            # Objetos de transferência de dados
+            └── erro/            # Tratamento global de erros
 ```
 
 ---
 
-## Author
+## Autor
 
 **Daniel Doria** — [github.com/danielcdoria](https://github.com/danielcdoria)
