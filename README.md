@@ -4,11 +4,19 @@ A RESTful API for managing projects and tasks, built with Java and Spring Boot.
 
 ## Technologies
 
-- Java 17
-- Spring Boot 3
-- Spring Data JPA
-- PostgreSQL
-- Docker
+![Java](https://img.shields.io/badge/Java-17-orange)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3-green)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-blue)
+![Docker](https://img.shields.io/badge/Docker-ready-blue)
+
+## Features
+
+- Full CRUD for Projects and Tasks
+- Task status flow: `PENDING → IN_PROGRESS → DONE`
+- Business rule: tasks can only be added to active projects
+- Filter tasks by status, priority, and deadline
+- Global error handling with meaningful messages
+- PostgreSQL database running in Docker
 
 ## Getting Started
 
@@ -21,7 +29,7 @@ A RESTful API for managing projects and tasks, built with Java and Spring Boot.
 
 **1. Clone the repository**
 ```bash
-git clone https://github.com/your-username/taskManagerAPI.git
+git clone https://github.com/danielcdoria/taskManagerAPI.git
 cd taskManagerAPI
 ```
 
@@ -32,10 +40,7 @@ docker compose up -d
 
 **3. Run the application**
 
-Open the project in IntelliJ IDEA and run `TaskManagerApiApplication.java`, or use Maven:
-```bash
-./mvnw spring-boot:run
-```
+Open the project in IntelliJ IDEA and run `TaskManagerApiApplication.java`.
 
 The API will be available at `http://localhost:8080`
 
@@ -64,8 +69,6 @@ The API will be available at `http://localhost:8080`
 }
 ```
 
----
-
 ### Tasks
 
 | Method | Endpoint | Description |
@@ -76,11 +79,11 @@ The API will be available at `http://localhost:8080`
 | PUT | `/tasks/{id}/activate` | Activate a task |
 | PUT | `/tasks/{id}/deactivate` | Deactivate a task |
 | DELETE | `/tasks/{id}` | Remove a task |
-| PUT | `/tasks/{id}/start` | Start a task (TODO → IN_PROGRESS) |
+| PUT | `/tasks/{id}/start` | Start a task (PENDING → IN_PROGRESS) |
 | PUT | `/tasks/{id}/complete` | Complete a task (IN_PROGRESS → DONE) |
 | GET | `/tasks/project/{id}` | List tasks by project |
 | GET | `/tasks/active?active=true` | Filter by active status |
-| GET | `/tasks/status?status=TODO` | Filter by status |
+| GET | `/tasks/status?status=PENDING` | Filter by status |
 | GET | `/tasks/priority?priority=HIGH` | Filter by priority |
 | GET | `/tasks/deadline?deadline=2025-12-31` | Filter by deadline |
 
@@ -100,8 +103,8 @@ The API will be available at `http://localhost:8080`
 
 - A task can only be created for an **active project**
 - Task status follows a strict flow: `PENDING → IN_PROGRESS → DONE`
-- A task can only be started if its status is `PENDING`
-- A task can only be completed if its status is `IN_PROGRESS`
+- A task can only be started if its current status is `PENDING`
+- A task can only be completed if its current status is `IN_PROGRESS`
 
 ---
 
@@ -113,9 +116,15 @@ src/
     └── java/
         └── com/example/taskManagerAPI/
             ├── controllers/     # REST endpoints
-            ├── services/        # Business logic
+            ├── service/         # Business logic
             ├── repositories/    # Database access
             ├── models/          # Entities (Project, Task)
             ├── dtos/            # Data Transfer Objects
             └── erro/            # Global exception handling
 ```
+
+---
+
+## Author
+
+**Daniel Doria** — [github.com/danielcdoria](https://github.com/danielcdoria)
