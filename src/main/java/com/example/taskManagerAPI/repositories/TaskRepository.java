@@ -10,5 +10,5 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     List<Task> findByActive(boolean active);
     List<Task> findByStatus(Task.Status status);
     List<Task> findByPriority(Task.Priority priority);
-    List<Task> findByProject_DeadLine(String deadline);
+    List<Task> findByProject_Deadline(String deadline);
 }

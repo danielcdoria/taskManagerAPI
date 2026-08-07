@@ -156,7 +156,7 @@ public class TaskService {
         if (deadline.isEmpty()){
             throw new IllegalArgumentException("The deadline can't be empty.");
         }
-        List<Task> list = repository.findByProject_DeadLine(deadline);
+        List<Task> list = repository.findByProject_Deadline(deadline);
         if (list.isEmpty()){
             throw new IllegalArgumentException("There is no task at this deadline.");
         }
